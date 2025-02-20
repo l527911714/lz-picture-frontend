@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ollama提问界面</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>AI模型提问</h1>
+
+<div>
+  <label>模型名称：</label>
+  <input type="text" id="model" placeholder="例如：llama2">
+</div>
+
+<div>
+  <label>问题：</label>
+  <textarea id="prompt" rows="4" cols="50"></textarea>
+</div>
+
+<button onclick="askAI()">提问</button>
+
+<div id="response" style="margin-top: 20px; white-space: pre-wrap;"></div>
+
+<script>
+  function askAI() {
+    const model = document.getElementById('model').value;
+    const prompt = document.getElementById('prompt').value;
+
+    axios.post('http://localhost:8666/api/ai/ask', {
+      model: model,
+      prompt: prompt
+    })
+      .then(response => {
+        document.getElementById('response').textContent = response.data.response;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('response').textContent = '错误：' + error.message;
+      });
+  }
+</script>
+</body>
+</html>

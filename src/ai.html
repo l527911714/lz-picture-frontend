@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ollama Chat</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h1>Ollama Chat</h1>
+<input type="text" id="promptInput" placeholder="Enter your prompt here">
+<button onclick="sendPrompt()">Send</button>
+<div id="response"></div>
+
+<script>
+  function sendPrompt() {
+    const prompt = document.getElementById('promptInput').value;
+    axios.post('http://localhost:8666/api/ollama/chat', { prompt })
+      .then(response => {
+        document.getElementById('response').innerText = response.data;
+      })
+      .catch(error => {
+        console.error('There was an error!', error);
+        document.getElementById('response').innerText = 'Error: ' + error.message;
+      });
+  }
+</script>
+</body>
+</html>

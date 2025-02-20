@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI智能问答 - Ollama</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <style>
+      :root {
+          --primary-color: #2563eb;
+          --hover-color: #1d4ed8;
+          --bg-color: #f8fafc;
+          --text-color: #1e293b;
+      }
+
+      * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+      }
+
+      body {
+          font-family: 'Segoe UI', system-ui, sans-serif;
+          line-height: 1.6;
+          background-color: var(--bg-color);
+          color: var(--text-color);
+          padding: 2rem;
+          max-width: 800px;
+          margin: 0 auto;
+      }
+
+      .container {
+          background: white;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+          text-align: center;
+          margin-bottom: 2rem;
+          color: var(--primary-color);
+          font-size: 2.2rem;
+      }
+
+      .input-group {
+          margin-bottom: 1.5rem;
+      }
+
+      label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+          color: #334155;
+      }
+
+      input[type="text"],
+      textarea {
+          width: 100%;
+          padding: 0.8rem;
+          border: 2px solid #e2e8f0;
+          border-radius: 6px;
+          font-size: 1rem;
+          transition: border-color 0.2s;
+      }
+
+      input[type="text"]:focus,
+      textarea:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      button {
+          background-color: var(--primary-color);
+          color: white;
+          padding: 0.8rem 1.5rem;
+          border: none;
+          border-radius: 6px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background 0.2s, transform 0.1s;
+          width: 100%;
+          font-weight: 500;
+      }
+
+      button:hover {
+          background-color: var(--hover-color);
+      }
+
+      button:active {
+          transform: scale(0.98);
+      }
+
+      #response {
+          margin-top: 2rem;
+          padding: 1.5rem;
+          background: #f1f5f9;
+          border-radius: 8px;
+          min-height: 120px;
+          white-space: pre-wrap;
+          line-height: 1.8;
+      }
+
+      .loading {
+          position: relative;
+          pointer-events: none;
+          opacity: 0.7;
+      }
+
+      .loading::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 20px;
+          height: 20px;
+          border: 3px solid rgba(255, 255, 255, 0.3);
+          border-top-color: white;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+          to { transform: rotate(360deg); }
+      }
+
+      @media (max-width: 640px) {
+          body {
+              padding: 1rem;
+          }
+
+          .container {
+              padding: 1.5rem;
+          }
+      }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>🤖 AI智能问答系统</h1>
+
+  <div class="input-group">
+    <label for="model">选择AI模型</label>
+    <input
+      type="text"
+      id="model"
+      placeholder="输入模型名称，例如：llama2"
+    >
+  </div>
+
+  <div class="input-group">
+    <label for="prompt">输入您的问题</label>
+    <textarea
+      id="prompt"
+      rows="5"
+      placeholder="请输入您的问题，尽量清晰明确..."
+    ></textarea>
+  </div>
+
+  <button onclick="askAI()">发送问题</button>
+
+  <div class="input-group">
+    <label>AI回复</label>
+    <div id="response">等待问题提交...</div>
+  </div>
+</div>
+
+<script>
+  async function askAI() {
+    const model = document.getElementById('model').value;
+    const prompt = document.getElementById('prompt').value;
+    const button = document.querySelector('button');
+    const responseDiv = document.getElementById('response');
+
+    if (!model || !prompt) {
+      responseDiv.textContent = '请填写模型名称和问题内容';
+      return;
+    }
+
+    try {
+      button.classList.add('loading');
+      responseDiv.textContent = '思考中...';
+
+      const response = await axios.post('http://localhost:8666/api/ai/ask', {
+        model: model,
+        prompt: prompt
+      }, {
+        timeout: 30000
+      });
+
+      responseDiv.textContent = response.data.response;
+    } catch (error) {
+      console.error('Error:', error);
+      responseDiv.textContent = `请求失败: ${error.response?.data?.error || error.message}`;
+    } finally {
+      button.classList.remove('loading');
+    }
+  }
+</script>
+</body>
+</html>
