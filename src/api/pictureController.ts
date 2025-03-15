@@ -188,7 +188,7 @@ export async function searchPictureByColorUsingPost(
   })
 }
 
-/** searchPictureByPicture POST /api/picture/search/picture */
+/** 以图搜图 POST /api/picture/search/picture */
 export async function searchPictureByPictureUsingPost(
   body: API.SearchPictureByPictureRequest,
   options?: { [key: string]: any }

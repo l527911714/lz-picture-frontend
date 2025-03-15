@@ -18,6 +18,8 @@ import SpaceUserManagePage from '@/pages/admin/SpaceUserManagePage.vue'
 import ai3 from '@/pages/ai3.vue'
 import userUpdatePasswordPage from '@/pages/user/UserUpdatePasswordPage.vue'
 import UserInfoUpdatePage from '@/pages/user/UserInfoUpdatePage.vue'
+import StompChat from '@/pages/StompChat.vue'
+// import websocket from '@/views/websocket.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -115,6 +117,11 @@ const router = createRouter({
       path: '/search_picture',
       name: '图片搜索结果',
       component: SearchPicturePage,
+    },
+    {
+      path: '/stomp',
+      name: 'Im',
+      component: StompChat,
     },
     {
       path: '/about',

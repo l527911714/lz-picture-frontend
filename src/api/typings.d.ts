@@ -1,4 +1,11 @@
 declare namespace API {
+  type addFriendUsingPOSTParams = {
+    /** friendname */
+    friendname: string
+    /** userAccount */
+    userAccount: string
+  }
+
   type BaseResponseBoolean_ = {
     code?: number
     data?: boolean
@@ -195,6 +202,11 @@ declare namespace API {
     id?: number
   }
 
+  type getFriendsUsingGETParams = {
+    /** userAccount */
+    userAccount: string
+  }
+
   type GetOutPaintingTaskResponse = {
     output?: Output1
     requestId?: string
@@ -244,6 +256,7 @@ declare namespace API {
     createTime?: string
     editTime?: string
     id?: number
+    phone?: string
     updateTime?: string
     userAccount?: string
     userAvatar?: string
@@ -453,10 +466,6 @@ declare namespace API {
     url?: string
     user?: UserVO
     userId?: number
-  }
-
-  type PromptRequest = {
-    prompt?: string
   }
 
   type SearchPictureByColorRequest = {
@@ -672,6 +681,7 @@ declare namespace API {
     editTime?: string
     id?: number
     isDelete?: number
+    phone?: string
     updateTime?: string
     userAccount?: string
     userAvatar?: string
@@ -682,6 +692,7 @@ declare namespace API {
   }
 
   type UserAddRequest = {
+    phone?: string
     userAccount?: string
     userAvatar?: string
     userName?: string
@@ -698,6 +709,7 @@ declare namespace API {
     current?: number
     id?: number
     pageSize?: number
+    phone?: string
     sortField?: string
     sortOrder?: string
     userAccount?: string
@@ -719,6 +731,7 @@ declare namespace API {
 
   type UserUpdateRequest = {
     id?: number
+    phone?: string
     userAvatar?: string
     userName?: string
     userProfile?: string
@@ -728,6 +741,7 @@ declare namespace API {
   type UserVO = {
     createTime?: string
     id?: number
+    phone?: string
     userAccount?: string
     userAvatar?: string
     userName?: string

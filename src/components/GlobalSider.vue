@@ -19,7 +19,7 @@
 </template>
 <script lang="ts" setup>
 import { computed, h, ref, watchEffect } from 'vue'
-import { PictureOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons-vue'
+import { CommentOutlined,PictureOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
 import { SPACE_TYPE_ENUM } from '@/constants/space.ts'
@@ -34,6 +34,11 @@ const fixedMenuItems = [
     key: '/',
     icon: () => h(PictureOutlined),
     label: '公共图库',
+  },
+  {
+    key: '/stomp',
+    icon: () => h(CommentOutlined ),
+    label: '多人聊天',
   },
   {
     key: '/my_space',

@@ -1,17 +1,18 @@
 import axios from 'axios'
 import { message } from 'ant-design-vue'
 //创建Axios实例
-// 区分开发和生产环境
+// 1、区分开发和生产环境
 const DEV_BASE_URL = "http://localhost:8666";
 const PROD_BASE_URL = "http://49.234.204.205";
-// 创建 Axios 实例
+
+// 2、创建 Axios 实例
 const myAxios = axios.create({
   baseURL: DEV_BASE_URL,
   timeout: 10000,
   withCredentials: true,
 });
 
-// 全局请求拦截器,暂时无须对请求拦截器做任何处理
+// 3、全局请求拦截器,暂时无须对请求拦截器做任何处理
 axios.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
@@ -23,7 +24,7 @@ axios.interceptors.request.use(
   },
 )
 
-// 全局响应拦截器
+// 4、全局响应拦截器
 myAxios.interceptors.response.use(
   function (response) {
     const { data } = response

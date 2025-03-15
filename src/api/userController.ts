@@ -14,6 +14,21 @@ export async function addUserUsingPost(body: API.UserAddRequest, options?: { [ke
   })
 }
 
+/** addFriend POST /api/user/addFriend */
+export async function addFriendUsingPost(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.addFriendUsingPOSTParams,
+  options?: { [key: string]: any }
+) {
+  return request<API.BaseResponseString_>('/api/user/addFriend', {
+    method: 'POST',
+    params: {
+      ...params,
+    },
+    ...(options || {}),
+  })
+}
+
 /** changeUserPassword POST /api/user/change/password */
 export async function changeUserPasswordUsingPost(
   body: API.UserUpdatePasswordRequest,
@@ -40,6 +55,21 @@ export async function deleteUserUsingPost(
       'Content-Type': 'application/json',
     },
     data: body,
+    ...(options || {}),
+  })
+}
+
+/** getFriends GET /api/user/friends */
+export async function getFriendsUsingGet(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getFriendsUsingGETParams,
+  options?: { [key: string]: any }
+) {
+  return request<API.User[]>('/api/user/friends', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
     ...(options || {}),
   })
 }

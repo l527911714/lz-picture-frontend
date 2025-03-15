@@ -41,6 +41,20 @@
         />
       </a-form-item>
 
+      <!-- 电话号码 -->
+      <a-form-item
+        label="电话号"
+        name="phone"
+        :rules="[{ required: true, message: '请输入电话号' }]"
+        class="form-item"
+      >
+        <a-input
+          v-model:value="formState.phone"
+          placeholder="请输入电话号码"
+          class="custom-input"
+        />
+      </a-form-item>
+
       <!-- 用户简介 -->
       <a-form-item label="个人简介" name="userProfile" class="form-item">
         <a-textarea
@@ -95,7 +109,8 @@ const submitting = ref(false);
 const formState = reactive({
   userName: '',
   userAvatar: '',
-  userProfile: ''
+  userProfile: '',
+  phone:''
 });
 
 // 初始化表单数据
@@ -103,6 +118,7 @@ onMounted(() => {
   formState.userName = loginUserStore.loginUser.userName || '';
   formState.userAvatar = loginUserStore.loginUser.userAvatar || '';
   formState.userProfile = loginUserStore.loginUser.userProfile || '';
+  formState.phone = loginUserStore.loginUser.phone || '';
 });
 
 // 文件校验（与后端保持一致）
@@ -236,7 +252,8 @@ const handleSubmit = async () => {
       userName: formState.userName,
       userProfile: formState.userProfile,
       // 头像路径已在前端自动更新
-      userAvatar: formState.userAvatar
+      userAvatar: formState.userAvatar,
+      phone: formState.phone,
     };
 
     const res = await updateUserUsingPost(params);

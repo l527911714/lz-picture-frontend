@@ -6,8 +6,8 @@
       </a-layout-header>
       <!--侧边栏与内容同级别-->
       <a-layout>
-        <GlobalSider  class="sider" />
-        <a-layout-content class="content">
+        <GlobalSider class="sider" />
+        <a-layout-content class="content" >
           <router-view />
         </a-layout-content>
       </a-layout>
@@ -29,7 +29,6 @@ import GlobalSider from '@/components/GlobalSider.vue'
 </script>
 
 <style scoped>
-
 #basicLayout .header {
   background: white;
   color: unset;
@@ -51,10 +50,12 @@ import GlobalSider from '@/components/GlobalSider.vue'
   padding: 28px;
   margin-bottom: 28px;
 }
-#basicLayout .sider{
+
+#basicLayout .sider {
   background: #fff;
   margin-right: 1px;
 }
+
 #basicLayout :deep(.ant-menu-root) {
   border-bottom: none !important;
   border-inline-end: none !important;

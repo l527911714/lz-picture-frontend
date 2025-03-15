@@ -61,6 +61,7 @@ const spaceForm = reactive<API.SpaceAddRequest | API.SpaceEditRequest>({})
 const loading = ref(false) //添加加载效果，不允许多次点击
 
 const route = useRoute()//得到路由信息对象
+
 // 空间类别，默认为私有空间
 const spaceType = computed(() => {
   if (route.query?.type) {
